@@ -1,113 +1,77 @@
-import 'package:owl/annotation/json.dart';
-import 'models.g.dart';
+import 'package:built_collection/built_collection.dart';
+import 'package:built_value/built_value.dart';
 
-@JsonClass()
-class AccessTokenResponse {
-  @JsonField(key: 'access_token')
-  String accessToken;
+part 'models.g.dart';
 
-  User user;
+abstract class AccessTokenResponse implements Built<AccessTokenResponse, AccessTokenResponseBuilder> {
+  AccessTokenResponse._();
+  factory AccessTokenResponse([void Function(AccessTokenResponseBuilder) updates]) = _$AccessTokenResponse;
 
-  AccessTokenResponse({this.accessToken, this.user});
-  factory AccessTokenResponse.fromJson(Map map) =>
-      AccessTokenResponseMapper.parse(map);
-  Map<String, dynamic> toJson() => AccessTokenResponseMapper.map(this);
+  @BuiltValueField(wireName: 'access_token')
+  String get accessToken;
+
+  User get user;
 }
 
-@JsonClass()
-class User {
-  String id, username, bio, website;
-  UserCounts counts;
+abstract class User implements Built<User, UserBuilder> {
+  User._();
+  factory User([void Function(UserBuilder) updates]) = _$User;
 
-  @JsonField(key: 'full_name')
-  String fullName;
+  String get id; 
+  String get username;
+  String get bio;
+  String get website;
 
-  @JsonField(key: 'profile_picture')
-  String profilePicture;
+  @BuiltValueField(wireName: 'full_name')
+  String get fullName;
 
-  User(
-      {this.id,
-      this.username,
-      this.fullName,
-      this.bio,
-      this.website,
-      this.counts});
-  factory User.fromJson(Map map) => UserMapper.parse(map);
-  Map<String, dynamic> toJson() => UserMapper.map(this);
+  @BuiltValueField(wireName: 'profile_picture')
+  String get profilePicture;
+
+  UserCounts get counts;
 }
 
-@JsonClass()
-class UserCounts {
-  int media, follows;
+abstract class UserCounts implements Built<UserCounts, UserCountsBuilder> {
+  UserCounts._();
+  factory UserCounts([void Function(UserCountsBuilder) updates]) = _$UserCounts;
 
-  @JsonField(key: 'followed_by')
-  int followedBy;
+  int get media;
+  int get follows;
 
-  UserCounts({this.media, this.follows, this.followedBy});
-  factory UserCounts.fromJson(Map map) => UserCountsMapper.parse(map);
-  Map<String, dynamic> toJson() => UserCountsMapper.map(this);
+  @BuiltValueField(wireName: 'followed_by')
+  int get followedBy;
 }
 
-@JsonClass()
-class Media {
-  String id, type, filter, link;
+abstract class Media implements Built<Media, MediaBuilder> {
+  Media._();
+  factory Media([void Function(MediaBuilder) updates]) = _$Media;
 
-  MediaCaption caption;
+  String get id;
+  String get type;
+  String get filter;
+  String get link;
 
-  @JsonField(key: 'users_in_photo')
-  List<UserInPhoto> usersInPhoto;
+  MediaCaption get caption;
 
-  @JsonField(native: true)
-  List<String> tags;
+  @BuiltValueField(wireName: 'users_in_photo')
+  BuiltList<UserInPhoto> get usersInPhoto;
 
-  CommentOrLikeCount comments, likes;
+  BuiltList<String> get tags;
+  CommentOrLikeCount get comments;
+  CommentOrLikeCount get likes;
+  User get user;
+  Location get location;
+  MediaImages get images;
+  MediaImages get videos;
+  
+  @BuiltValueField(wireName: 'user_has_liked')
+  bool get userHasLiked;  
+  
+  @BuiltValueField(wireName: 'carousel_media')
+  List<Media> get carouselMedia;
 
-  User user;
-
-  Location location;
-
-  MediaImages images, videos;
-
-  @JsonField(key: 'user_has_liked')
-  bool userHasLiked;
-
-  @JsonField(key: 'carousel_media')
-  List<Media> carouselMedia;
-
-  @Transient()
-  DateTime createdTime;
-
-  Media(
-      {this.id,
-      this.type,
-      this.filter,
-      this.link,
-      this.caption,
-      this.usersInPhoto: const [],
-      this.tags: const [],
-      this.comments,
-      this.likes,
-      this.user,
-      this.location,
-      this.images,
-      this.videos,
-      this.userHasLiked,
-      this.carouselMedia,
-      this.createdTime});
-  factory Media.fromJson(Map map) {
-    var m = MediaMapper.parse(map);
-    if (map['created_time'] is String)
-      m.createdTime = new DateTime.fromMillisecondsSinceEpoch(
-          int.parse(map['created_time']) * 1000);
-    return m;
-  }
-
-  Map<String, dynamic> toJson() {
-    return MediaMapper.map(this)
-      ..['created_time'] = createdTime == null
-          ? null
-          : (createdTime.millisecondsSinceEpoch / 1000).toString();
-  }
+  @BuiltValueField(wireName: 'created_time')
+  DateTime get createdTime;
 }
 
 /// The various types of media on Instagram.
@@ -122,43 +86,27 @@ abstract class MediaType {
   static const String carousel = 'carousel';
 }
 
-@JsonClass()
-class MediaCaption {
-  String id, text;
-  User from;
+abstract class MediaCaption implements Built<MediaCaption, MediaCaptionBuilder> {
+  MediaCaption._();
+  factory MediaCaption([void Function(MediaCaptionBuilder) updates]) = _$MediaCaption;
 
-  @Transient()
-  DateTime createdTime;
-
-  MediaCaption({this.id, this.text, this.from});
-
-  factory MediaCaption.fromJson(Map map) {
-    var m = MediaCaptionMapper.parse(map);
-    if (map['created_time'] is String)
-      m.createdTime = new DateTime.fromMillisecondsSinceEpoch(
-          int.parse(map['created_time']) * 1000);
-    return m;
-  }
-
-  Map<String, dynamic> toJson() {
-    return MediaCaptionMapper.map(this)
-      ..['created_time'] = createdTime == null
-          ? null
-          : (createdTime.millisecondsSinceEpoch / 1000).toString();
-  }
+  String get id;
+  String get text;
+  User get from;
+  
+  @BuiltValueField(wireName: 'created_time')
+  DateTime get createdTime;
 }
 
-@JsonClass()
-class Relationship {
-  @JsonField(key: 'outgoing_status')
-  String outgoingStatus;
+abstract class Relationship implements Built<Relationship, RelationshipBuilder> {
+  Relationship._();
+  factory Relationship([void Function(RelationshipBuilder) updates]) = _$Relationship;
 
-  @JsonField(key: 'incoming_status')
-  String incomingStatus;
-
-  Relationship({this.incomingStatus, this.outgoingStatus});
-  factory Relationship.fromJson(Map map) => RelationshipMapper.parse(map);
-  Map<String, dynamic> toJson() => RelationshipMapper.map(this);
+  @BuiltValueField(wireName: 'outgoing_status')
+  String get outgoingStatus;
+  
+  @BuiltValueField(wireName: 'incoming_status')
+  String get incomingStatus;
 }
 
 /// The various types of incoming relationship status on Instagram.
@@ -203,117 +151,93 @@ abstract class RelationshipAction {
   static const String ignore = 'ignore';
 }
 
-@JsonClass()
-class MediaImages {
-  @JsonField(key: 'low_resolution')
-  MediaImage lowResolution;
+abstract class MediaImages implements Built<MediaImages, MediaImagesBuilder> {
+  MediaImages._();
+  factory MediaImages([void Function(MediaImagesBuilder) updates]) = _$MediaImages;
 
-  MediaImage thumbnail;
+  @BuiltValueField(wireName: 'low_resolution')
+  MediaImage get lowResolution;
 
-  @JsonField(key: 'standard_resolution')
-  MediaImage standardResolution;
+  MediaImage get thumbnail;
 
-  MediaImages({this.lowResolution, this.thumbnail, this.standardResolution});
-  factory MediaImages.fromJson(Map map) => MediaImagesMapper.parse(map);
-  Map<String, dynamic> toJson() => MediaImagesMapper.map(this);
+  @BuiltValueField(wireName: 'standard_resolution')
+  MediaImage get standardResolution;
 }
 
-@JsonClass()
-class MediaImage {
-  String url;
-  int width, height;
-
-  MediaImage({this.url, this.width, this.height});
-  factory MediaImage.fromJson(Map map) => MediaImageMapper.parse(map);
-  Map<String, dynamic> toJson() => MediaImageMapper.map(this);
+abstract class MediaImage implements Built<MediaImage, MediaImageBuilder> {
+  MediaImage._();
+  factory MediaImage([void Function(MediaImageBuilder) updates]) = _$MediaImage;
+  
+  String get url;
+  int get width;
+  int get height;
 }
 
-@JsonClass()
-class CommentOrLikeCount {
-  int count;
-  CommentOrLikeCount({this.count});
-  factory CommentOrLikeCount.fromJson(Map map) =>
-      CommentOrLikeCountMapper.parse(map);
-  Map<String, dynamic> toJson() => CommentOrLikeCountMapper.map(this);
+abstract class CommentOrLikeCount implements Built<CommentOrLikeCount, CommentOrLikeCountBuilder> {
+  CommentOrLikeCount._();
+  factory CommentOrLikeCount([void Function(CommentOrLikeCountBuilder) updates]) = _$CommentOrLikeCount;
+
+  int get count;
 }
 
-@JsonClass()
-class UserInPhoto {
-  User user;
-  UserInPhotoPosition position;
-  UserInPhoto({this.user, this.position});
-  factory UserInPhoto.fromJson(Map map) => UserInPhotoMapper.parse(map);
-  Map<String, dynamic> toJson() => UserInPhotoMapper.map(this);
+abstract class UserInPhoto implements Built<UserInPhoto, UserInPhotoBuilder> {
+  UserInPhoto._();
+  factory UserInPhoto([void Function(UserInPhotoBuilder) updates]) = _$UserInPhoto;
+
+  User get user;
+  UserInPhotoPosition get position;
 }
 
-@JsonClass()
-class UserInPhotoPosition {
-  num x, y;
-  UserInPhotoPosition({this.x, this.y});
-  factory UserInPhotoPosition.fromJson(Map map) =>
-      UserInPhotoPositionMapper.parse(map);
-  Map<String, dynamic> toJson() => UserInPhotoPositionMapper.map(this);
+abstract class UserInPhotoPosition implements Built<UserInPhotoPosition, UserInPhotoPositionBuilder> {
+  UserInPhotoPosition._();
+  factory UserInPhotoPosition([void Function(UserInPhotoPositionBuilder) updates]) = _$UserInPhotoPosition;
+
+  num get x;
+  num get y; 
 }
 
-@JsonClass()
-class Comment {
-  String id, text;
-  User from;
+abstract class Comment implements Built<Comment, CommentBuilder> {
+  Comment._();
+  factory Comment([void Function(CommentBuilder) updates]) = _$Comment;
 
-  @Transient()
-  DateTime createdTime;
-
-  Comment({this.id, this.text, this.from, this.createdTime});
-
-  factory Comment.fromJson(Map map) {
-    var c = CommentMapper.parse(map);
-    if (map['created_time'] is String)
-      c.createdTime = new DateTime.fromMillisecondsSinceEpoch(
-          int.parse(map['created_time']) * 1000);
-    return c;
-  }
-
-  Map<String, dynamic> toJson() {
-    return CommentMapper.map(this)
-      ..['created_time'] = createdTime == null
-          ? null
-          : (createdTime.millisecondsSinceEpoch / 1000).toString();
-  }
+  String get id;
+  String get text;
+  User get from;
+  
+  @BuiltValueField(wireName: 'created_time')
+  DateTime get createdTime;
 }
 
-@JsonClass()
-class Tag {
-  String name;
+abstract class Tag implements Built<Tag, TagBuilder> {
+  Tag._();
+  factory Tag([void Function(TagBuilder) updates]) = _$Tag;
 
-  @JsonField(key: 'media_count')
-  int mediaCount;
+  String get name;
 
-  Tag({this.name, this.mediaCount});
-  factory Tag.fromJson(Map map) => TagMapper.parse(map);
-  Map<String, dynamic> toJson() => TagMapper.map(this);
+  @BuiltValueField(wireName: 'media_count')
+  int get mediaCount;
 }
 
-@JsonClass()
-class Location {
-  int id;
-  String name;
-  num latitude, longitude;
+abstract class Location implements Built<Location, LocationBuilder> {
+  Location._();
+  factory Location([void Function(LocationBuilder) updates]) = _$Location;
 
-  Location({this.id, this.name, this.latitude, this.longitude});
-  factory Location.fromJson(Map map) => LocationMapper.parse(map);
-  Map<String, dynamic> toJson() => LocationMapper.map(this);
+  int get id;
+  String get name;
+  num get latitude;
+  num get longitude;
 }
 
-@JsonClass()
-class Subscription {
-  String id, type, aspect;
+abstract class Subscription implements Built<Subscription, SubscriptionBuilder> {
+  Subscription._();
+  factory Subscription([void Function(SubscriptionBuilder) updates]) = _$Subscription;
 
-  @JsonField(key: 'callback_url')
-  String callbackUrl;
+  String get id;
+  String get type;
+  String get aspect;
 
-  Subscription({this.id, this.type, this.aspect, this.callbackUrl});
-  factory Subscription.fromJson(Map map) => SubscriptionMapper.parse(map);
-  Map<String, dynamic> toJson() => SubscriptionMapper.map(this);
+  @BuiltValueField(wireName: 'callback_url')
+  String get callbackUrl;
 }
 
 /// The various objects for Instagram subscriptions.

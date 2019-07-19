@@ -1,34 +1,31 @@
-import 'package:owl/annotation/json.dart';
-import 'impl_models.g.dart';
+import 'package:built_value/built_value.dart';
+part 'impl_models.g.dart';
 
-@JsonClass()
-class InstagramResponse {
-  InstagramException meta;
-  InstagramResponsePagination pagination;
+abstract class InstagramResponse implements Built<InstagramResponse, InstagramResponseBuilder> {
+  InstagramResponse._();
+  factory InstagramResponse([void Function(InstagramResponseBuilder) updates]) = _$InstagramResponse;
 
-  @JsonField(native: true)
-  dynamic data;
+  @nullable
+  Object get data;
 
-  InstagramResponse({this.meta, this.pagination, this.data: const {}});
-  factory InstagramResponse.fromJson(Map map) =>
-      InstagramResponseMapper.parse(map);
-  Map<String, dynamic> toJson() => InstagramResponseMapper.map(this);
+  @nullable
+  InstagramException get meta;
+
+  @nullable
+  InstagramResponsePagination get pagination;
 }
 
-@JsonClass()
-class InstagramException implements Exception {
-  int code;
+abstract class InstagramException implements Built<InstagramException, InstagramExceptionBuilder>, Exception {
+  InstagramException._();
+  factory InstagramException([void Function(InstagramExceptionBuilder) updates]) = _$InstagramException;
 
-  @JsonField(key: 'error_type')
-  String errorType;
+  int get code;
 
-  @JsonField(key: 'error_message')
-  String errorMessage;
+  @BuiltValueField(wireName: 'error_type')
+  String get errorType;
 
-  InstagramException({this.code, this.errorType, this.errorMessage});
-  factory InstagramException.fromJson(Map map) =>
-      InstagramExceptionMapper.parse(map);
-  Map<String, dynamic> toJson() => InstagramExceptionMapper.map(this);
+  @BuiltValueField(wireName: 'error_message')
+  String get errorMessage;
 
   @override
   String toString() {
@@ -36,32 +33,26 @@ class InstagramException implements Exception {
   }
 }
 
-@JsonClass()
-class InstagramResponsePagination {
-  @JsonField(key: 'next_url')
-  String nextUrl;
+abstract class InstagramResponsePagination implements Built<InstagramResponsePagination, InstagramResponsePaginationBuilder>{
+  InstagramResponsePagination._();
+  factory InstagramResponsePagination([void Function(InstagramResponsePaginationBuilder) updates]) = _$InstagramResponsePagination;
+  
+  @BuiltValueField(wireName: 'next_url')
+  String get nextUrl;
 
-  @JsonField(key: 'next_max_id')
-  String nextMaxId;
-
-  InstagramResponsePagination({this.nextUrl, this.nextMaxId});
-  factory InstagramResponsePagination.fromJson(Map map) =>
-      InstagramResponsePaginationMapper.parse(map);
-  Map<String, dynamic> toJson() => InstagramResponsePaginationMapper.map(this);
+  @BuiltValueField(wireName: 'next_max_id')
+  String get nextMaxId;
 }
 
-@JsonClass()
-class InstagramAuthException implements Exception {
-  String error;
+abstract class InstagramAuthException implements Built<InstagramAuthException, InstagramAuthExceptionBuilder>, Exception {
+  InstagramAuthException._();
+  factory InstagramAuthException([void Function(InstagramAuthExceptionBuilder) updates]) = _$InstagramAuthException;
+  
+  String get error;
 
-  @JsonField(key: 'error_reason')
-  String errorReason;
+  @BuiltValueField(wireName: 'error_reason')
+  String get errorReason;
 
-  @JsonField(key: 'error_description')
-  String errorDescription;
-
-  InstagramAuthException({this.error, this.errorReason, this.errorDescription});
-  factory InstagramAuthException.fromJson(Map map) =>
-      InstagramAuthExceptionMapper.parse(map);
-  Map<String, dynamic> toJson() => InstagramAuthExceptionMapper.map(this);
+  @BuiltValueField(wireName: 'error_description')
+  String get errorDescription;
 }
