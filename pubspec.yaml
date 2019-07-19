@@ -1,14 +1,13 @@
 name: instagram
 version: 1.0.0
 description: Dart Instagram client library.
-author: Tobe O <thosakwe@gmail.com>
-homepage: https://github.com/thosakwe/instagram_dart
+author: Ilya B <festeloqq@gmail.com> && Tobe O <thosakwe@gmail.com>
+homepage: https://github.com/festelo/instagram_dart
 environment:
   sdk: ">=1.19.0 <3.0.0"
 dependencies:
   oauth2: ^1.0.0
-  owl: ^0.2.1
+  built_value: ^6.7.0
 dev_dependencies:
-  build_runner: ^0.3.0
-  owl_codegen: ^0.2.1
-  test: ^0.12.0
+  build_runner: ^1.6.1
+  built_value_generator: ^6.7.0
