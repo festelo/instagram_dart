@@ -1,3 +1,5 @@
+import 'package:instagram/src/models/serializers.dart';
+
 import '../api/tag.dart';
 import '../requestor.dart';
 import 'dart:async';
@@ -11,9 +13,11 @@ class InstagramTagsApiImpl implements InstagramTagsApi {
 
   @override
   Future<List<Tag>> search(String query) {
-    return requestor.request('$_root/search').then((r) {
-      return r.data.map((m) => new Tag.fromJson(m)).toList();
-    });
+    return requestor.request('$_root/search').then((r) =>
+      (r.data as List<Map>)
+          .map((m) => serializers.deserializeWith(Tag.serializer, m))
+          .toList()
+    );
   }
 
   @override
@@ -26,17 +30,20 @@ class InstagramTagsApiImpl implements InstagramTagsApi {
     if (count != null) queryParameters['count'] = count.toString();
 
     return requestor
-        .request('$_root/$tagName/media/recent',
-            queryParameters: queryParameters)
-        .then((r) {
-      return r.data.map((m) => new Media.fromJson(m)).toList();
-    });
+      .request('$_root/$tagName/media/recent', queryParameters: queryParameters)
+      .then((r) =>
+        (r.data as List<Map>)
+            .map((m) => serializers.deserializeWith(Media.serializer, m))
+            .toList()
+      );
   }
 
   @override
   Future<Tag> getByName(String tagName) {
-    return requestor.request('$_root/$tagName').then((r) {
-      return r.data.map((m) => new Tag.fromJson(m)).toList();
-    });
+    return requestor
+      .request('$_root/$tagName')
+      .then((r) =>
+        serializers.deserializeWith(Tag.serializer, r.data)
+      );
   }
 }

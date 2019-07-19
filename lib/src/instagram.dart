@@ -3,6 +3,8 @@ import 'dart:convert';
 import 'package:http/src/base_client.dart' as http;
 import 'package:http/src/request.dart' as http;
 import 'package:http/src/response.dart' as http;
+import 'package:instagram/instagram.dart';
+import 'package:instagram/src/models/serializers.dart';
 import 'package:oauth2/oauth2.dart' as oauth2;
 import 'api/api.dart';
 import 'impl/instagram.dart';
@@ -57,7 +59,7 @@ class InstagramApiAuth {
   static AccessTokenResponse parseAccessTokenResponse(http.Response response) {
     if (response.headers['content-type']?.contains('application/json') != true)
       throw new FormatException('The response is not formatted as JSON.');
-    var untyped = JSON.decode(response.body);
+    var untyped = json.decode(response.body);
 
     if (untyped is! Map)
       throw new FormatException('Expected the response to be a JSON object.');
@@ -67,8 +69,7 @@ class InstagramApiAuth {
       throw new FormatException(
           'Expected both an "access_token" and a "user".');
     }
-
-    return new AccessTokenResponse.fromJson(new Map.from(untyped));
+    return serializers.deserializeWith(AccessTokenResponse.serializer, untyped);
   }
 
   /// Creates an API client from an access token.
@@ -147,12 +148,12 @@ class _SubscriptionManagerImpl implements SubscriptionManager {
           true)
         throw new FormatException(
             'The response is not formatted as JSON: "${response.body}"');
-      var untyped = JSON.decode(response.body);
+      var untyped = json.decode(response.body);
 
       if (untyped is! Map)
         throw new FormatException('Expected the response to be a JSON object.');
 
-      var r = new InstagramResponse.fromJson(untyped);
+      var r = serializers.deserializeWith(InstagramResponse.serializer, untyped);
 
       if (r.meta.code != 200) throw r.meta;
 
@@ -183,13 +184,16 @@ class _SubscriptionManagerImpl implements SubscriptionManager {
       'aspect': aspect,
       'verify_token': verifyToken,
       'callback_url': callbackUrl
-    }).then<Subscription>((r) => new Subscription.fromJson(r.data));
+    }).then<Subscription>((r) => serializers.deserializeWith(Subscription.serializer, r.data));
   }
 
   @override
   Future<List<Subscription>> fetchAll() {
     return send('GET').then<List<Subscription>>(
-        (r) => r.data.map((m) => new Subscription.fromJson(m)).toList());
+        (r) => (r.data as List<Map>)
+          .map((m) => serializers.deserializeWith(Subscription.serializer, m))
+          .toList()
+      );
   }
 }
 
@@ -210,12 +214,12 @@ class _RequestorImpl extends Requestor {
           true)
         throw new FormatException(
             'The response is not formatted as JSON: "${response.body}"');
-      var untyped = JSON.decode(response.body);
+      var untyped = json.decode(response.body);
 
       if (untyped is! Map)
         throw new FormatException('Expected the response to be a JSON object.');
 
-      var r = new InstagramResponse.fromJson(untyped);
+      var r = serializers.deserializeWith(InstagramResponse.serializer, untyped);
 
       if (r.meta.code != 200) throw r.meta;
 

@@ -1,3 +1,5 @@
+import 'package:instagram/src/models/serializers.dart';
+
 import '../api/like.dart';
 import '../models/models.dart';
 import '../requestor.dart';
@@ -27,9 +29,13 @@ class _InstagramLikesApiMediaImpl implements InstagramLikesApiMedia {
 
   @override
   Future<List<User>> getUsersWhoHaveLiked() {
-    return requestor.request(_root).then((r) {
-      return r.data.map((m) => new User.fromJson(m)).toList();
-    });
+    return requestor
+      .request(_root)
+      .then((r) =>
+        (r.data as List<Map>)
+            .map((m) => serializers.deserializeWith(User.serializer, m))
+            .toList()
+      );
   }
 
   @override

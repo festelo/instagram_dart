@@ -1,3 +1,5 @@
+import 'package:instagram/src/models/serializers.dart';
+
 import '../api/location.dart';
 import '../models/models.dart';
 import '../requestor.dart';
@@ -22,9 +24,11 @@ class InstagramLocationsApiImpl implements InstagramLocationsApi {
 
     return requestor
         .request('$_root/search', queryParameters: queryParameters)
-        .then((r) {
-      return r.data.map((m) => new Location.fromJson(m)).toList();
-    });
+        .then((r) =>
+          (r.data as List<Map>)
+              .map((m) => serializers.deserializeWith(Location.serializer, m))
+              .toList()
+        );
   }
 
   @override
@@ -36,17 +40,20 @@ class InstagramLocationsApiImpl implements InstagramLocationsApi {
     if (minId != null) queryParameters['min_tag_id'] = minId;
 
     return requestor
-        .request('$_root/$locationId/media/recent',
-            queryParameters: queryParameters)
-        .then((r) {
-      return r.data.map((m) => new Location.fromJson(m)).toList();
-    });
+      .request('$_root/$locationId/media/recent', queryParameters: queryParameters)
+      .then((r) =>
+        (r.data as List<Map>)
+            .map((m) => serializers.deserializeWith(Media.serializer, m))
+            .toList()
+      );
   }
 
   @override
   Future<Location> getById(String locationId) {
-    return requestor.request('$_root/$locationId').then((r) {
-      return r.data.map((m) => new Location.fromJson(m)).toList();
-    });
+    return requestor
+      .request('$_root/$locationId')
+      .then((r) =>
+        serializers.deserializeWith(Location.serializer, r.data)
+      );
   }
 }

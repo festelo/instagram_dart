@@ -1,4 +1,6 @@
 import 'dart:async';
+import 'package:instagram/src/models/serializers.dart';
+
 import '../api/media.dart';
 import '../models/models.dart';
 import '../requestor.dart';
@@ -14,7 +16,7 @@ class InstagramMediaApiImpl implements InstagramMediaApi {
   Future<Media> getById(String mediaId) {
     return requestor
         .request('$_root/$mediaId')
-        .then((r) => new Media.fromJson(r.data));
+        .then((r) => serializers.deserializeWith(Media.serializer, r.data));
   }
 
   @override
@@ -29,9 +31,11 @@ class InstagramMediaApiImpl implements InstagramMediaApi {
     if (distance != null) queryParameters['distance'] = distance.toString();
 
     return requestor
-        .request('$_root/search', queryParameters: queryParameters)
-        .then((r) {
-      return r.data.map((m) => new Media.fromJson(m)).toList();
-    });
+      .request('$_root/search', queryParameters: queryParameters)
+      .then((r) =>
+        (r.data as List<Map>)
+            .map((m) => serializers.deserializeWith(Media.serializer, m))
+            .toList()
+      );
   }
 }

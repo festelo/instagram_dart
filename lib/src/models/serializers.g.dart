@@ -8,7 +8,9 @@ part of 'serializers.dart';
 
 Serializers _$serializers = (new Serializers().toBuilder()
       ..add(AccessTokenResponse.serializer)
+      ..add(Comment.serializer)
       ..add(CommentOrLikeCount.serializer)
+      ..add(InstagramAuthException.serializer)
       ..add(InstagramException.serializer)
       ..add(InstagramResponse.serializer)
       ..add(InstagramResponsePagination.serializer)

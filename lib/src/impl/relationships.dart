@@ -1,4 +1,6 @@
 import 'dart:async';
+import 'package:instagram/src/models/serializers.dart';
+
 import '../api/relationships.dart';
 import '../models/models.dart';
 import '../requestor.dart';
@@ -19,23 +21,35 @@ class InstagramRelationshipsApiImpl implements InstagramRelationshipsApi {
 
   @override
   Future<List<User>> getRequestedBy() {
-    return requestor.request('$_root/requested-by').then((r) {
-      return r.data.map((m) => new User.fromJson(m)).toList();
-    });
+    return requestor
+      .request('$_root/requested-by')
+      .then((r) =>
+        (r.data as List<Map>)
+            .map((m) => serializers.deserializeWith(User.serializer, m))
+            .toList()
+      );
   }
 
   @override
   Future<List<User>> getFollowers() {
-    return requestor.request('$_root/followed-by').then((r) {
-      return r.data.map((m) => new User.fromJson(m)).toList();
-    });
+    return requestor
+      .request('$_root/followed-by')
+      .then((r) =>
+        (r.data as List<Map>)
+            .map((m) => serializers.deserializeWith(User.serializer, m))
+            .toList()
+      );
   }
 
   @override
   Future<List<User>> getFollowing() {
-    return requestor.request('$_root/follows').then((r) {
-      return r.data.map((m) => new User.fromJson(m)).toList();
-    });
+    return requestor
+      .request('$_root/follows')
+      .then((r) =>
+        (r.data as List<Map>)
+            .map((m) => serializers.deserializeWith(User.serializer, m))
+            .toList()
+      );
   }
 }
 
@@ -52,14 +66,14 @@ class _InstagramRelationshipsApiUserImpl
   Future<Relationship> modify(String action) {
     return requestor
         .request(_root, method: 'POST', body: {'action': action}).then((r) {
-      return new Relationship.fromJson(r.data);
+      return serializers.deserializeWith(Relationship.serializer, r.data);
     });
   }
 
   @override
   Future<Relationship> get() {
     return requestor.request(_root).then((r) {
-      return new Relationship.fromJson(r.data);
+      return serializers.deserializeWith(Relationship.serializer, r.data);
     });
   }
 }

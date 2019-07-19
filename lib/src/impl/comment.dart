@@ -1,3 +1,5 @@
+import 'package:instagram/src/models/serializers.dart';
+
 import '../api/comment.dart';
 import '../models/models.dart';
 import '../requestor.dart';
@@ -27,9 +29,12 @@ class _InstagramCommentsApiMediaImpl implements InstagramCommentsApiMedia {
 
   @override
   Future<List<Comment>> getComments() {
-    return requestor.request(_root).then((r) {
-      return r.data.map((m) => new Comment.fromJson(m)).toList();
-    });
+    return requestor.request(_root)
+      .then((r) =>
+        (r.data as List<Map>)
+            .map((m) => serializers.deserializeWith(Comment.serializer, m))
+            .toList()
+      );
   }
 
   @override

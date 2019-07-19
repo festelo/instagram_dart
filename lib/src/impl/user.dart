@@ -1,3 +1,5 @@
+import 'package:instagram/src/models/serializers.dart';
+
 import '../api/user.dart';
 import '../models/models.dart';
 import '../requestor.dart';
@@ -19,7 +21,7 @@ class InstagramUsersApiImpl implements InstagramUsersApi {
   Future<User> getById(String userId) {
     return requestor
         .request('$_root/$userId')
-        .then((r) => new User.fromJson(r.data));
+        .then((r) => serializers.deserializeWith(User.serializer, r.data));
   }
 
   @override
@@ -32,11 +34,12 @@ class InstagramUsersApiImpl implements InstagramUsersApi {
     if (count != null) queryParameters['count'] = count.toString();
 
     return requestor
-        .request('$_root/$userId/media/recent',
-            queryParameters: queryParameters)
-        .then((r) {
-      return r.data.map((m) => new Media.fromJson(m)).toList();
-    });
+      .request('$_root/$userId/media/recent', queryParameters: queryParameters)
+      .then((r) {
+        return (r.data as List<Map>)
+          .map((m) => serializers.deserializeWith(Media.serializer, m))
+          .toList();
+     });
   }
 
   @override
@@ -46,10 +49,13 @@ class InstagramUsersApiImpl implements InstagramUsersApi {
     if (count != null) queryParameters['count'] = count.toString();
 
     return requestor
-        .request('$_root/search', queryParameters: queryParameters)
-        .then((r) {
-      return r.data.map((m) => new User.fromJson(m)).toList();
-    });
+      .request('$_root/search', queryParameters: queryParameters)
+      .then((r) {
+        return (r.data as List<Map>)
+          .map((m) => serializers.deserializeWith(User.serializer, m))
+          .toList();
+      }
+     );
   }
 }
 
@@ -70,10 +76,13 @@ class _InstagramUsersApiSelfImpl implements InstagramUsersApiSelf {
     if (count != null) queryParameters['count'] = count.toString();
 
     return requestor
-        .request('$_root/self/media/liked', queryParameters: queryParameters)
-        .then((r) {
-      return r.data.map((m) => new Media.fromJson(m)).toList();
-    });
+      .request('$_root/self/media/liked', queryParameters: queryParameters)
+      .then((r) {
+        return (r.data as List<Map>)
+          .map((m) => serializers.deserializeWith(Media.serializer, m))
+          .toList();
+     }
+    );
   }
 
   @override
