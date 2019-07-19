@@ -6,6 +6,249 @@ part of 'impl_models.dart';
 // BuiltValueGenerator
 // **************************************************************************
 
+Serializer<InstagramResponse> _$instagramResponseSerializer =
+    new _$InstagramResponseSerializer();
+Serializer<InstagramException> _$instagramExceptionSerializer =
+    new _$InstagramExceptionSerializer();
+Serializer<InstagramResponsePagination>
+    _$instagramResponsePaginationSerializer =
+    new _$InstagramResponsePaginationSerializer();
+Serializer<InstagramAuthException> _$instagramAuthExceptionSerializer =
+    new _$InstagramAuthExceptionSerializer();
+
+class _$InstagramResponseSerializer
+    implements StructuredSerializer<InstagramResponse> {
+  @override
+  final Iterable<Type> types = const [InstagramResponse, _$InstagramResponse];
+  @override
+  final String wireName = 'InstagramResponse';
+
+  @override
+  Iterable<Object> serialize(Serializers serializers, InstagramResponse object,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = <Object>[];
+    if (object.data != null) {
+      result
+        ..add('data')
+        ..add(serializers.serialize(object.data,
+            specifiedType: const FullType(Object)));
+    }
+    if (object.meta != null) {
+      result
+        ..add('meta')
+        ..add(serializers.serialize(object.meta,
+            specifiedType: const FullType(InstagramException)));
+    }
+    if (object.pagination != null) {
+      result
+        ..add('pagination')
+        ..add(serializers.serialize(object.pagination,
+            specifiedType: const FullType(InstagramResponsePagination)));
+    }
+    return result;
+  }
+
+  @override
+  InstagramResponse deserialize(
+      Serializers serializers, Iterable<Object> serialized,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = new InstagramResponseBuilder();
+
+    final iterator = serialized.iterator;
+    while (iterator.moveNext()) {
+      final key = iterator.current as String;
+      iterator.moveNext();
+      final dynamic value = iterator.current;
+      switch (key) {
+        case 'data':
+          result.data = serializers.deserialize(value,
+              specifiedType: const FullType(Object));
+          break;
+        case 'meta':
+          result.meta.replace(serializers.deserialize(value,
+                  specifiedType: const FullType(InstagramException))
+              as InstagramException);
+          break;
+        case 'pagination':
+          result.pagination.replace(serializers.deserialize(value,
+                  specifiedType: const FullType(InstagramResponsePagination))
+              as InstagramResponsePagination);
+          break;
+      }
+    }
+
+    return result.build();
+  }
+}
+
+class _$InstagramExceptionSerializer
+    implements StructuredSerializer<InstagramException> {
+  @override
+  final Iterable<Type> types = const [InstagramException, _$InstagramException];
+  @override
+  final String wireName = 'InstagramException';
+
+  @override
+  Iterable<Object> serialize(Serializers serializers, InstagramException object,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = <Object>[
+      'code',
+      serializers.serialize(object.code, specifiedType: const FullType(int)),
+      'error_type',
+      serializers.serialize(object.errorType,
+          specifiedType: const FullType(String)),
+      'error_message',
+      serializers.serialize(object.errorMessage,
+          specifiedType: const FullType(String)),
+    ];
+
+    return result;
+  }
+
+  @override
+  InstagramException deserialize(
+      Serializers serializers, Iterable<Object> serialized,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = new InstagramExceptionBuilder();
+
+    final iterator = serialized.iterator;
+    while (iterator.moveNext()) {
+      final key = iterator.current as String;
+      iterator.moveNext();
+      final dynamic value = iterator.current;
+      switch (key) {
+        case 'code':
+          result.code = serializers.deserialize(value,
+              specifiedType: const FullType(int)) as int;
+          break;
+        case 'error_type':
+          result.errorType = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
+        case 'error_message':
+          result.errorMessage = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
+      }
+    }
+
+    return result.build();
+  }
+}
+
+class _$InstagramResponsePaginationSerializer
+    implements StructuredSerializer<InstagramResponsePagination> {
+  @override
+  final Iterable<Type> types = const [
+    InstagramResponsePagination,
+    _$InstagramResponsePagination
+  ];
+  @override
+  final String wireName = 'InstagramResponsePagination';
+
+  @override
+  Iterable<Object> serialize(
+      Serializers serializers, InstagramResponsePagination object,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = <Object>[
+      'next_url',
+      serializers.serialize(object.nextUrl,
+          specifiedType: const FullType(String)),
+      'next_max_id',
+      serializers.serialize(object.nextMaxId,
+          specifiedType: const FullType(String)),
+    ];
+
+    return result;
+  }
+
+  @override
+  InstagramResponsePagination deserialize(
+      Serializers serializers, Iterable<Object> serialized,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = new InstagramResponsePaginationBuilder();
+
+    final iterator = serialized.iterator;
+    while (iterator.moveNext()) {
+      final key = iterator.current as String;
+      iterator.moveNext();
+      final dynamic value = iterator.current;
+      switch (key) {
+        case 'next_url':
+          result.nextUrl = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
+        case 'next_max_id':
+          result.nextMaxId = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
+      }
+    }
+
+    return result.build();
+  }
+}
+
+class _$InstagramAuthExceptionSerializer
+    implements StructuredSerializer<InstagramAuthException> {
+  @override
+  final Iterable<Type> types = const [
+    InstagramAuthException,
+    _$InstagramAuthException
+  ];
+  @override
+  final String wireName = 'InstagramAuthException';
+
+  @override
+  Iterable<Object> serialize(
+      Serializers serializers, InstagramAuthException object,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = <Object>[
+      'error',
+      serializers.serialize(object.error,
+          specifiedType: const FullType(String)),
+      'error_reason',
+      serializers.serialize(object.errorReason,
+          specifiedType: const FullType(String)),
+      'error_description',
+      serializers.serialize(object.errorDescription,
+          specifiedType: const FullType(String)),
+    ];
+
+    return result;
+  }
+
+  @override
+  InstagramAuthException deserialize(
+      Serializers serializers, Iterable<Object> serialized,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = new InstagramAuthExceptionBuilder();
+
+    final iterator = serialized.iterator;
+    while (iterator.moveNext()) {
+      final key = iterator.current as String;
+      iterator.moveNext();
+      final dynamic value = iterator.current;
+      switch (key) {
+        case 'error':
+          result.error = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
+        case 'error_reason':
+          result.errorReason = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
+        case 'error_description':
+          result.errorDescription = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
+      }
+    }
+
+    return result.build();
+  }
+}
+
 class _$InstagramResponse extends InstagramResponse {
   @override
   final Object data;

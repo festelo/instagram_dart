@@ -1,11 +1,14 @@
 import 'package:built_collection/built_collection.dart';
 import 'package:built_value/built_value.dart';
+import 'package:built_value/serializer.dart';
 
 part 'models.g.dart';
+
 
 abstract class AccessTokenResponse implements Built<AccessTokenResponse, AccessTokenResponseBuilder> {
   AccessTokenResponse._();
   factory AccessTokenResponse([void Function(AccessTokenResponseBuilder) updates]) = _$AccessTokenResponse;
+  static Serializer<AccessTokenResponse> get serializer => _$accessTokenResponseSerializer;
 
   @BuiltValueField(wireName: 'access_token')
   String get accessToken;
@@ -16,6 +19,7 @@ abstract class AccessTokenResponse implements Built<AccessTokenResponse, AccessT
 abstract class User implements Built<User, UserBuilder> {
   User._();
   factory User([void Function(UserBuilder) updates]) = _$User;
+  static Serializer<User> get serializer => _$userSerializer;
 
   String get id; 
   String get username;
@@ -34,6 +38,7 @@ abstract class User implements Built<User, UserBuilder> {
 abstract class UserCounts implements Built<UserCounts, UserCountsBuilder> {
   UserCounts._();
   factory UserCounts([void Function(UserCountsBuilder) updates]) = _$UserCounts;
+  static Serializer<UserCounts> get serializer => _$userCountsSerializer;
 
   int get media;
   int get follows;
@@ -45,6 +50,7 @@ abstract class UserCounts implements Built<UserCounts, UserCountsBuilder> {
 abstract class Media implements Built<Media, MediaBuilder> {
   Media._();
   factory Media([void Function(MediaBuilder) updates]) = _$Media;
+  static Serializer<Media> get serializer => _$mediaSerializer;
 
   String get id;
   String get type;
@@ -89,6 +95,7 @@ abstract class MediaType {
 abstract class MediaCaption implements Built<MediaCaption, MediaCaptionBuilder> {
   MediaCaption._();
   factory MediaCaption([void Function(MediaCaptionBuilder) updates]) = _$MediaCaption;
+  static Serializer<MediaCaption> get serializer => _$mediaCaptionSerializer;
 
   String get id;
   String get text;
@@ -101,6 +108,7 @@ abstract class MediaCaption implements Built<MediaCaption, MediaCaptionBuilder> 
 abstract class Relationship implements Built<Relationship, RelationshipBuilder> {
   Relationship._();
   factory Relationship([void Function(RelationshipBuilder) updates]) = _$Relationship;
+  static Serializer<Relationship> get serializer => _$relationshipSerializer;
 
   @BuiltValueField(wireName: 'outgoing_status')
   String get outgoingStatus;
@@ -154,6 +162,7 @@ abstract class RelationshipAction {
 abstract class MediaImages implements Built<MediaImages, MediaImagesBuilder> {
   MediaImages._();
   factory MediaImages([void Function(MediaImagesBuilder) updates]) = _$MediaImages;
+  static Serializer<MediaImages> get serializer => _$mediaImagesSerializer;
 
   @BuiltValueField(wireName: 'low_resolution')
   MediaImage get lowResolution;
@@ -167,7 +176,8 @@ abstract class MediaImages implements Built<MediaImages, MediaImagesBuilder> {
 abstract class MediaImage implements Built<MediaImage, MediaImageBuilder> {
   MediaImage._();
   factory MediaImage([void Function(MediaImageBuilder) updates]) = _$MediaImage;
-  
+  static Serializer<MediaImage> get serializer => _$mediaImageSerializer;
+
   String get url;
   int get width;
   int get height;
@@ -176,6 +186,7 @@ abstract class MediaImage implements Built<MediaImage, MediaImageBuilder> {
 abstract class CommentOrLikeCount implements Built<CommentOrLikeCount, CommentOrLikeCountBuilder> {
   CommentOrLikeCount._();
   factory CommentOrLikeCount([void Function(CommentOrLikeCountBuilder) updates]) = _$CommentOrLikeCount;
+  static Serializer<CommentOrLikeCount> get serializer => _$commentOrLikeCountSerializer;
 
   int get count;
 }
@@ -183,6 +194,7 @@ abstract class CommentOrLikeCount implements Built<CommentOrLikeCount, CommentOr
 abstract class UserInPhoto implements Built<UserInPhoto, UserInPhotoBuilder> {
   UserInPhoto._();
   factory UserInPhoto([void Function(UserInPhotoBuilder) updates]) = _$UserInPhoto;
+  static Serializer<UserInPhoto> get serializer => _$userInPhotoSerializer;
 
   User get user;
   UserInPhotoPosition get position;
@@ -191,6 +203,7 @@ abstract class UserInPhoto implements Built<UserInPhoto, UserInPhotoBuilder> {
 abstract class UserInPhotoPosition implements Built<UserInPhotoPosition, UserInPhotoPositionBuilder> {
   UserInPhotoPosition._();
   factory UserInPhotoPosition([void Function(UserInPhotoPositionBuilder) updates]) = _$UserInPhotoPosition;
+  static Serializer<UserInPhotoPosition> get serializer => _$userInPhotoPositionSerializer;
 
   num get x;
   num get y; 
@@ -199,6 +212,7 @@ abstract class UserInPhotoPosition implements Built<UserInPhotoPosition, UserInP
 abstract class Comment implements Built<Comment, CommentBuilder> {
   Comment._();
   factory Comment([void Function(CommentBuilder) updates]) = _$Comment;
+  static Serializer<Comment> get serializer => _$commentSerializer;
 
   String get id;
   String get text;
@@ -211,6 +225,7 @@ abstract class Comment implements Built<Comment, CommentBuilder> {
 abstract class Tag implements Built<Tag, TagBuilder> {
   Tag._();
   factory Tag([void Function(TagBuilder) updates]) = _$Tag;
+  static Serializer<Tag> get serializer => _$tagSerializer;
 
   String get name;
 
@@ -221,6 +236,7 @@ abstract class Tag implements Built<Tag, TagBuilder> {
 abstract class Location implements Built<Location, LocationBuilder> {
   Location._();
   factory Location([void Function(LocationBuilder) updates]) = _$Location;
+  static Serializer<Location> get serializer => _$locationSerializer;
 
   int get id;
   String get name;
@@ -231,6 +247,7 @@ abstract class Location implements Built<Location, LocationBuilder> {
 abstract class Subscription implements Built<Subscription, SubscriptionBuilder> {
   Subscription._();
   factory Subscription([void Function(SubscriptionBuilder) updates]) = _$Subscription;
+  static Serializer<Subscription> get serializer => _$subscriptionSerializer;
 
   String get id;
   String get type;

@@ -6,6 +6,934 @@ part of 'models.dart';
 // BuiltValueGenerator
 // **************************************************************************
 
+Serializer<AccessTokenResponse> _$accessTokenResponseSerializer =
+    new _$AccessTokenResponseSerializer();
+Serializer<User> _$userSerializer = new _$UserSerializer();
+Serializer<UserCounts> _$userCountsSerializer = new _$UserCountsSerializer();
+Serializer<Media> _$mediaSerializer = new _$MediaSerializer();
+Serializer<MediaCaption> _$mediaCaptionSerializer =
+    new _$MediaCaptionSerializer();
+Serializer<Relationship> _$relationshipSerializer =
+    new _$RelationshipSerializer();
+Serializer<MediaImages> _$mediaImagesSerializer = new _$MediaImagesSerializer();
+Serializer<MediaImage> _$mediaImageSerializer = new _$MediaImageSerializer();
+Serializer<CommentOrLikeCount> _$commentOrLikeCountSerializer =
+    new _$CommentOrLikeCountSerializer();
+Serializer<UserInPhoto> _$userInPhotoSerializer = new _$UserInPhotoSerializer();
+Serializer<UserInPhotoPosition> _$userInPhotoPositionSerializer =
+    new _$UserInPhotoPositionSerializer();
+Serializer<Comment> _$commentSerializer = new _$CommentSerializer();
+Serializer<Tag> _$tagSerializer = new _$TagSerializer();
+Serializer<Location> _$locationSerializer = new _$LocationSerializer();
+Serializer<Subscription> _$subscriptionSerializer =
+    new _$SubscriptionSerializer();
+
+class _$AccessTokenResponseSerializer
+    implements StructuredSerializer<AccessTokenResponse> {
+  @override
+  final Iterable<Type> types = const [
+    AccessTokenResponse,
+    _$AccessTokenResponse
+  ];
+  @override
+  final String wireName = 'AccessTokenResponse';
+
+  @override
+  Iterable<Object> serialize(
+      Serializers serializers, AccessTokenResponse object,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = <Object>[
+      'access_token',
+      serializers.serialize(object.accessToken,
+          specifiedType: const FullType(String)),
+      'user',
+      serializers.serialize(object.user, specifiedType: const FullType(User)),
+    ];
+
+    return result;
+  }
+
+  @override
+  AccessTokenResponse deserialize(
+      Serializers serializers, Iterable<Object> serialized,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = new AccessTokenResponseBuilder();
+
+    final iterator = serialized.iterator;
+    while (iterator.moveNext()) {
+      final key = iterator.current as String;
+      iterator.moveNext();
+      final dynamic value = iterator.current;
+      switch (key) {
+        case 'access_token':
+          result.accessToken = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
+        case 'user':
+          result.user.replace(serializers.deserialize(value,
+              specifiedType: const FullType(User)) as User);
+          break;
+      }
+    }
+
+    return result.build();
+  }
+}
+
+class _$UserSerializer implements StructuredSerializer<User> {
+  @override
+  final Iterable<Type> types = const [User, _$User];
+  @override
+  final String wireName = 'User';
+
+  @override
+  Iterable<Object> serialize(Serializers serializers, User object,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = <Object>[
+      'id',
+      serializers.serialize(object.id, specifiedType: const FullType(String)),
+      'username',
+      serializers.serialize(object.username,
+          specifiedType: const FullType(String)),
+      'bio',
+      serializers.serialize(object.bio, specifiedType: const FullType(String)),
+      'website',
+      serializers.serialize(object.website,
+          specifiedType: const FullType(String)),
+      'full_name',
+      serializers.serialize(object.fullName,
+          specifiedType: const FullType(String)),
+      'profile_picture',
+      serializers.serialize(object.profilePicture,
+          specifiedType: const FullType(String)),
+      'counts',
+      serializers.serialize(object.counts,
+          specifiedType: const FullType(UserCounts)),
+    ];
+
+    return result;
+  }
+
+  @override
+  User deserialize(Serializers serializers, Iterable<Object> serialized,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = new UserBuilder();
+
+    final iterator = serialized.iterator;
+    while (iterator.moveNext()) {
+      final key = iterator.current as String;
+      iterator.moveNext();
+      final dynamic value = iterator.current;
+      switch (key) {
+        case 'id':
+          result.id = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
+        case 'username':
+          result.username = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
+        case 'bio':
+          result.bio = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
+        case 'website':
+          result.website = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
+        case 'full_name':
+          result.fullName = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
+        case 'profile_picture':
+          result.profilePicture = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
+        case 'counts':
+          result.counts.replace(serializers.deserialize(value,
+              specifiedType: const FullType(UserCounts)) as UserCounts);
+          break;
+      }
+    }
+
+    return result.build();
+  }
+}
+
+class _$UserCountsSerializer implements StructuredSerializer<UserCounts> {
+  @override
+  final Iterable<Type> types = const [UserCounts, _$UserCounts];
+  @override
+  final String wireName = 'UserCounts';
+
+  @override
+  Iterable<Object> serialize(Serializers serializers, UserCounts object,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = <Object>[
+      'media',
+      serializers.serialize(object.media, specifiedType: const FullType(int)),
+      'follows',
+      serializers.serialize(object.follows, specifiedType: const FullType(int)),
+      'followed_by',
+      serializers.serialize(object.followedBy,
+          specifiedType: const FullType(int)),
+    ];
+
+    return result;
+  }
+
+  @override
+  UserCounts deserialize(Serializers serializers, Iterable<Object> serialized,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = new UserCountsBuilder();
+
+    final iterator = serialized.iterator;
+    while (iterator.moveNext()) {
+      final key = iterator.current as String;
+      iterator.moveNext();
+      final dynamic value = iterator.current;
+      switch (key) {
+        case 'media':
+          result.media = serializers.deserialize(value,
+              specifiedType: const FullType(int)) as int;
+          break;
+        case 'follows':
+          result.follows = serializers.deserialize(value,
+              specifiedType: const FullType(int)) as int;
+          break;
+        case 'followed_by':
+          result.followedBy = serializers.deserialize(value,
+              specifiedType: const FullType(int)) as int;
+          break;
+      }
+    }
+
+    return result.build();
+  }
+}
+
+class _$MediaSerializer implements StructuredSerializer<Media> {
+  @override
+  final Iterable<Type> types = const [Media, _$Media];
+  @override
+  final String wireName = 'Media';
+
+  @override
+  Iterable<Object> serialize(Serializers serializers, Media object,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = <Object>[
+      'id',
+      serializers.serialize(object.id, specifiedType: const FullType(String)),
+      'type',
+      serializers.serialize(object.type, specifiedType: const FullType(String)),
+      'filter',
+      serializers.serialize(object.filter,
+          specifiedType: const FullType(String)),
+      'link',
+      serializers.serialize(object.link, specifiedType: const FullType(String)),
+      'caption',
+      serializers.serialize(object.caption,
+          specifiedType: const FullType(MediaCaption)),
+      'users_in_photo',
+      serializers.serialize(object.usersInPhoto,
+          specifiedType:
+              const FullType(BuiltList, const [const FullType(UserInPhoto)])),
+      'tags',
+      serializers.serialize(object.tags,
+          specifiedType:
+              const FullType(BuiltList, const [const FullType(String)])),
+      'comments',
+      serializers.serialize(object.comments,
+          specifiedType: const FullType(CommentOrLikeCount)),
+      'likes',
+      serializers.serialize(object.likes,
+          specifiedType: const FullType(CommentOrLikeCount)),
+      'user',
+      serializers.serialize(object.user, specifiedType: const FullType(User)),
+      'location',
+      serializers.serialize(object.location,
+          specifiedType: const FullType(Location)),
+      'images',
+      serializers.serialize(object.images,
+          specifiedType: const FullType(MediaImages)),
+      'videos',
+      serializers.serialize(object.videos,
+          specifiedType: const FullType(MediaImages)),
+      'user_has_liked',
+      serializers.serialize(object.userHasLiked,
+          specifiedType: const FullType(bool)),
+      'carousel_media',
+      serializers.serialize(object.carouselMedia,
+          specifiedType: const FullType(List, const [const FullType(Media)])),
+      'created_time',
+      serializers.serialize(object.createdTime,
+          specifiedType: const FullType(DateTime)),
+    ];
+
+    return result;
+  }
+
+  @override
+  Media deserialize(Serializers serializers, Iterable<Object> serialized,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = new MediaBuilder();
+
+    final iterator = serialized.iterator;
+    while (iterator.moveNext()) {
+      final key = iterator.current as String;
+      iterator.moveNext();
+      final dynamic value = iterator.current;
+      switch (key) {
+        case 'id':
+          result.id = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
+        case 'type':
+          result.type = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
+        case 'filter':
+          result.filter = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
+        case 'link':
+          result.link = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
+        case 'caption':
+          result.caption.replace(serializers.deserialize(value,
+              specifiedType: const FullType(MediaCaption)) as MediaCaption);
+          break;
+        case 'users_in_photo':
+          result.usersInPhoto.replace(serializers.deserialize(value,
+                  specifiedType: const FullType(
+                      BuiltList, const [const FullType(UserInPhoto)]))
+              as BuiltList<dynamic>);
+          break;
+        case 'tags':
+          result.tags.replace(serializers.deserialize(value,
+                  specifiedType:
+                      const FullType(BuiltList, const [const FullType(String)]))
+              as BuiltList<dynamic>);
+          break;
+        case 'comments':
+          result.comments.replace(serializers.deserialize(value,
+                  specifiedType: const FullType(CommentOrLikeCount))
+              as CommentOrLikeCount);
+          break;
+        case 'likes':
+          result.likes.replace(serializers.deserialize(value,
+                  specifiedType: const FullType(CommentOrLikeCount))
+              as CommentOrLikeCount);
+          break;
+        case 'user':
+          result.user.replace(serializers.deserialize(value,
+              specifiedType: const FullType(User)) as User);
+          break;
+        case 'location':
+          result.location.replace(serializers.deserialize(value,
+              specifiedType: const FullType(Location)) as Location);
+          break;
+        case 'images':
+          result.images.replace(serializers.deserialize(value,
+              specifiedType: const FullType(MediaImages)) as MediaImages);
+          break;
+        case 'videos':
+          result.videos.replace(serializers.deserialize(value,
+              specifiedType: const FullType(MediaImages)) as MediaImages);
+          break;
+        case 'user_has_liked':
+          result.userHasLiked = serializers.deserialize(value,
+              specifiedType: const FullType(bool)) as bool;
+          break;
+        case 'carousel_media':
+          result.carouselMedia = serializers.deserialize(value,
+                  specifiedType:
+                      const FullType(List, const [const FullType(Media)]))
+              as List<Media>;
+          break;
+        case 'created_time':
+          result.createdTime = serializers.deserialize(value,
+              specifiedType: const FullType(DateTime)) as DateTime;
+          break;
+      }
+    }
+
+    return result.build();
+  }
+}
+
+class _$MediaCaptionSerializer implements StructuredSerializer<MediaCaption> {
+  @override
+  final Iterable<Type> types = const [MediaCaption, _$MediaCaption];
+  @override
+  final String wireName = 'MediaCaption';
+
+  @override
+  Iterable<Object> serialize(Serializers serializers, MediaCaption object,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = <Object>[
+      'id',
+      serializers.serialize(object.id, specifiedType: const FullType(String)),
+      'text',
+      serializers.serialize(object.text, specifiedType: const FullType(String)),
+      'from',
+      serializers.serialize(object.from, specifiedType: const FullType(User)),
+      'created_time',
+      serializers.serialize(object.createdTime,
+          specifiedType: const FullType(DateTime)),
+    ];
+
+    return result;
+  }
+
+  @override
+  MediaCaption deserialize(Serializers serializers, Iterable<Object> serialized,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = new MediaCaptionBuilder();
+
+    final iterator = serialized.iterator;
+    while (iterator.moveNext()) {
+      final key = iterator.current as String;
+      iterator.moveNext();
+      final dynamic value = iterator.current;
+      switch (key) {
+        case 'id':
+          result.id = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
+        case 'text':
+          result.text = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
+        case 'from':
+          result.from.replace(serializers.deserialize(value,
+              specifiedType: const FullType(User)) as User);
+          break;
+        case 'created_time':
+          result.createdTime = serializers.deserialize(value,
+              specifiedType: const FullType(DateTime)) as DateTime;
+          break;
+      }
+    }
+
+    return result.build();
+  }
+}
+
+class _$RelationshipSerializer implements StructuredSerializer<Relationship> {
+  @override
+  final Iterable<Type> types = const [Relationship, _$Relationship];
+  @override
+  final String wireName = 'Relationship';
+
+  @override
+  Iterable<Object> serialize(Serializers serializers, Relationship object,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = <Object>[
+      'outgoing_status',
+      serializers.serialize(object.outgoingStatus,
+          specifiedType: const FullType(String)),
+      'incoming_status',
+      serializers.serialize(object.incomingStatus,
+          specifiedType: const FullType(String)),
+    ];
+
+    return result;
+  }
+
+  @override
+  Relationship deserialize(Serializers serializers, Iterable<Object> serialized,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = new RelationshipBuilder();
+
+    final iterator = serialized.iterator;
+    while (iterator.moveNext()) {
+      final key = iterator.current as String;
+      iterator.moveNext();
+      final dynamic value = iterator.current;
+      switch (key) {
+        case 'outgoing_status':
+          result.outgoingStatus = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
+        case 'incoming_status':
+          result.incomingStatus = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
+      }
+    }
+
+    return result.build();
+  }
+}
+
+class _$MediaImagesSerializer implements StructuredSerializer<MediaImages> {
+  @override
+  final Iterable<Type> types = const [MediaImages, _$MediaImages];
+  @override
+  final String wireName = 'MediaImages';
+
+  @override
+  Iterable<Object> serialize(Serializers serializers, MediaImages object,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = <Object>[
+      'low_resolution',
+      serializers.serialize(object.lowResolution,
+          specifiedType: const FullType(MediaImage)),
+      'thumbnail',
+      serializers.serialize(object.thumbnail,
+          specifiedType: const FullType(MediaImage)),
+      'standard_resolution',
+      serializers.serialize(object.standardResolution,
+          specifiedType: const FullType(MediaImage)),
+    ];
+
+    return result;
+  }
+
+  @override
+  MediaImages deserialize(Serializers serializers, Iterable<Object> serialized,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = new MediaImagesBuilder();
+
+    final iterator = serialized.iterator;
+    while (iterator.moveNext()) {
+      final key = iterator.current as String;
+      iterator.moveNext();
+      final dynamic value = iterator.current;
+      switch (key) {
+        case 'low_resolution':
+          result.lowResolution.replace(serializers.deserialize(value,
+              specifiedType: const FullType(MediaImage)) as MediaImage);
+          break;
+        case 'thumbnail':
+          result.thumbnail.replace(serializers.deserialize(value,
+              specifiedType: const FullType(MediaImage)) as MediaImage);
+          break;
+        case 'standard_resolution':
+          result.standardResolution.replace(serializers.deserialize(value,
+              specifiedType: const FullType(MediaImage)) as MediaImage);
+          break;
+      }
+    }
+
+    return result.build();
+  }
+}
+
+class _$MediaImageSerializer implements StructuredSerializer<MediaImage> {
+  @override
+  final Iterable<Type> types = const [MediaImage, _$MediaImage];
+  @override
+  final String wireName = 'MediaImage';
+
+  @override
+  Iterable<Object> serialize(Serializers serializers, MediaImage object,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = <Object>[
+      'url',
+      serializers.serialize(object.url, specifiedType: const FullType(String)),
+      'width',
+      serializers.serialize(object.width, specifiedType: const FullType(int)),
+      'height',
+      serializers.serialize(object.height, specifiedType: const FullType(int)),
+    ];
+
+    return result;
+  }
+
+  @override
+  MediaImage deserialize(Serializers serializers, Iterable<Object> serialized,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = new MediaImageBuilder();
+
+    final iterator = serialized.iterator;
+    while (iterator.moveNext()) {
+      final key = iterator.current as String;
+      iterator.moveNext();
+      final dynamic value = iterator.current;
+      switch (key) {
+        case 'url':
+          result.url = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
+        case 'width':
+          result.width = serializers.deserialize(value,
+              specifiedType: const FullType(int)) as int;
+          break;
+        case 'height':
+          result.height = serializers.deserialize(value,
+              specifiedType: const FullType(int)) as int;
+          break;
+      }
+    }
+
+    return result.build();
+  }
+}
+
+class _$CommentOrLikeCountSerializer
+    implements StructuredSerializer<CommentOrLikeCount> {
+  @override
+  final Iterable<Type> types = const [CommentOrLikeCount, _$CommentOrLikeCount];
+  @override
+  final String wireName = 'CommentOrLikeCount';
+
+  @override
+  Iterable<Object> serialize(Serializers serializers, CommentOrLikeCount object,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = <Object>[
+      'count',
+      serializers.serialize(object.count, specifiedType: const FullType(int)),
+    ];
+
+    return result;
+  }
+
+  @override
+  CommentOrLikeCount deserialize(
+      Serializers serializers, Iterable<Object> serialized,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = new CommentOrLikeCountBuilder();
+
+    final iterator = serialized.iterator;
+    while (iterator.moveNext()) {
+      final key = iterator.current as String;
+      iterator.moveNext();
+      final dynamic value = iterator.current;
+      switch (key) {
+        case 'count':
+          result.count = serializers.deserialize(value,
+              specifiedType: const FullType(int)) as int;
+          break;
+      }
+    }
+
+    return result.build();
+  }
+}
+
+class _$UserInPhotoSerializer implements StructuredSerializer<UserInPhoto> {
+  @override
+  final Iterable<Type> types = const [UserInPhoto, _$UserInPhoto];
+  @override
+  final String wireName = 'UserInPhoto';
+
+  @override
+  Iterable<Object> serialize(Serializers serializers, UserInPhoto object,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = <Object>[
+      'user',
+      serializers.serialize(object.user, specifiedType: const FullType(User)),
+      'position',
+      serializers.serialize(object.position,
+          specifiedType: const FullType(UserInPhotoPosition)),
+    ];
+
+    return result;
+  }
+
+  @override
+  UserInPhoto deserialize(Serializers serializers, Iterable<Object> serialized,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = new UserInPhotoBuilder();
+
+    final iterator = serialized.iterator;
+    while (iterator.moveNext()) {
+      final key = iterator.current as String;
+      iterator.moveNext();
+      final dynamic value = iterator.current;
+      switch (key) {
+        case 'user':
+          result.user.replace(serializers.deserialize(value,
+              specifiedType: const FullType(User)) as User);
+          break;
+        case 'position':
+          result.position.replace(serializers.deserialize(value,
+                  specifiedType: const FullType(UserInPhotoPosition))
+              as UserInPhotoPosition);
+          break;
+      }
+    }
+
+    return result.build();
+  }
+}
+
+class _$UserInPhotoPositionSerializer
+    implements StructuredSerializer<UserInPhotoPosition> {
+  @override
+  final Iterable<Type> types = const [
+    UserInPhotoPosition,
+    _$UserInPhotoPosition
+  ];
+  @override
+  final String wireName = 'UserInPhotoPosition';
+
+  @override
+  Iterable<Object> serialize(
+      Serializers serializers, UserInPhotoPosition object,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = <Object>[
+      'x',
+      serializers.serialize(object.x, specifiedType: const FullType(num)),
+      'y',
+      serializers.serialize(object.y, specifiedType: const FullType(num)),
+    ];
+
+    return result;
+  }
+
+  @override
+  UserInPhotoPosition deserialize(
+      Serializers serializers, Iterable<Object> serialized,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = new UserInPhotoPositionBuilder();
+
+    final iterator = serialized.iterator;
+    while (iterator.moveNext()) {
+      final key = iterator.current as String;
+      iterator.moveNext();
+      final dynamic value = iterator.current;
+      switch (key) {
+        case 'x':
+          result.x = serializers.deserialize(value,
+              specifiedType: const FullType(num)) as num;
+          break;
+        case 'y':
+          result.y = serializers.deserialize(value,
+              specifiedType: const FullType(num)) as num;
+          break;
+      }
+    }
+
+    return result.build();
+  }
+}
+
+class _$CommentSerializer implements StructuredSerializer<Comment> {
+  @override
+  final Iterable<Type> types = const [Comment, _$Comment];
+  @override
+  final String wireName = 'Comment';
+
+  @override
+  Iterable<Object> serialize(Serializers serializers, Comment object,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = <Object>[
+      'id',
+      serializers.serialize(object.id, specifiedType: const FullType(String)),
+      'text',
+      serializers.serialize(object.text, specifiedType: const FullType(String)),
+      'from',
+      serializers.serialize(object.from, specifiedType: const FullType(User)),
+      'created_time',
+      serializers.serialize(object.createdTime,
+          specifiedType: const FullType(DateTime)),
+    ];
+
+    return result;
+  }
+
+  @override
+  Comment deserialize(Serializers serializers, Iterable<Object> serialized,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = new CommentBuilder();
+
+    final iterator = serialized.iterator;
+    while (iterator.moveNext()) {
+      final key = iterator.current as String;
+      iterator.moveNext();
+      final dynamic value = iterator.current;
+      switch (key) {
+        case 'id':
+          result.id = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
+        case 'text':
+          result.text = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
+        case 'from':
+          result.from.replace(serializers.deserialize(value,
+              specifiedType: const FullType(User)) as User);
+          break;
+        case 'created_time':
+          result.createdTime = serializers.deserialize(value,
+              specifiedType: const FullType(DateTime)) as DateTime;
+          break;
+      }
+    }
+
+    return result.build();
+  }
+}
+
+class _$TagSerializer implements StructuredSerializer<Tag> {
+  @override
+  final Iterable<Type> types = const [Tag, _$Tag];
+  @override
+  final String wireName = 'Tag';
+
+  @override
+  Iterable<Object> serialize(Serializers serializers, Tag object,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = <Object>[
+      'name',
+      serializers.serialize(object.name, specifiedType: const FullType(String)),
+      'media_count',
+      serializers.serialize(object.mediaCount,
+          specifiedType: const FullType(int)),
+    ];
+
+    return result;
+  }
+
+  @override
+  Tag deserialize(Serializers serializers, Iterable<Object> serialized,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = new TagBuilder();
+
+    final iterator = serialized.iterator;
+    while (iterator.moveNext()) {
+      final key = iterator.current as String;
+      iterator.moveNext();
+      final dynamic value = iterator.current;
+      switch (key) {
+        case 'name':
+          result.name = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
+        case 'media_count':
+          result.mediaCount = serializers.deserialize(value,
+              specifiedType: const FullType(int)) as int;
+          break;
+      }
+    }
+
+    return result.build();
+  }
+}
+
+class _$LocationSerializer implements StructuredSerializer<Location> {
+  @override
+  final Iterable<Type> types = const [Location, _$Location];
+  @override
+  final String wireName = 'Location';
+
+  @override
+  Iterable<Object> serialize(Serializers serializers, Location object,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = <Object>[
+      'id',
+      serializers.serialize(object.id, specifiedType: const FullType(int)),
+      'name',
+      serializers.serialize(object.name, specifiedType: const FullType(String)),
+      'latitude',
+      serializers.serialize(object.latitude,
+          specifiedType: const FullType(num)),
+      'longitude',
+      serializers.serialize(object.longitude,
+          specifiedType: const FullType(num)),
+    ];
+
+    return result;
+  }
+
+  @override
+  Location deserialize(Serializers serializers, Iterable<Object> serialized,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = new LocationBuilder();
+
+    final iterator = serialized.iterator;
+    while (iterator.moveNext()) {
+      final key = iterator.current as String;
+      iterator.moveNext();
+      final dynamic value = iterator.current;
+      switch (key) {
+        case 'id':
+          result.id = serializers.deserialize(value,
+              specifiedType: const FullType(int)) as int;
+          break;
+        case 'name':
+          result.name = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
+        case 'latitude':
+          result.latitude = serializers.deserialize(value,
+              specifiedType: const FullType(num)) as num;
+          break;
+        case 'longitude':
+          result.longitude = serializers.deserialize(value,
+              specifiedType: const FullType(num)) as num;
+          break;
+      }
+    }
+
+    return result.build();
+  }
+}
+
+class _$SubscriptionSerializer implements StructuredSerializer<Subscription> {
+  @override
+  final Iterable<Type> types = const [Subscription, _$Subscription];
+  @override
+  final String wireName = 'Subscription';
+
+  @override
+  Iterable<Object> serialize(Serializers serializers, Subscription object,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = <Object>[
+      'id',
+      serializers.serialize(object.id, specifiedType: const FullType(String)),
+      'type',
+      serializers.serialize(object.type, specifiedType: const FullType(String)),
+      'aspect',
+      serializers.serialize(object.aspect,
+          specifiedType: const FullType(String)),
+      'callback_url',
+      serializers.serialize(object.callbackUrl,
+          specifiedType: const FullType(String)),
+    ];
+
+    return result;
+  }
+
+  @override
+  Subscription deserialize(Serializers serializers, Iterable<Object> serialized,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = new SubscriptionBuilder();
+
+    final iterator = serialized.iterator;
+    while (iterator.moveNext()) {
+      final key = iterator.current as String;
+      iterator.moveNext();
+      final dynamic value = iterator.current;
+      switch (key) {
+        case 'id':
+          result.id = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
+        case 'type':
+          result.type = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
+        case 'aspect':
+          result.aspect = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
+        case 'callback_url':
+          result.callbackUrl = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
+      }
+    }
+
+    return result.build();
+  }
+}
+
 class _$AccessTokenResponse extends AccessTokenResponse {
   @override
   final String accessToken;

@@ -1,9 +1,11 @@
 import 'package:built_value/built_value.dart';
+import 'package:built_value/serializer.dart';
 part 'impl_models.g.dart';
 
 abstract class InstagramResponse implements Built<InstagramResponse, InstagramResponseBuilder> {
   InstagramResponse._();
   factory InstagramResponse([void Function(InstagramResponseBuilder) updates]) = _$InstagramResponse;
+  static Serializer<InstagramResponse> get serializer => _$instagramResponseSerializer;
 
   @nullable
   Object get data;
@@ -18,6 +20,7 @@ abstract class InstagramResponse implements Built<InstagramResponse, InstagramRe
 abstract class InstagramException implements Built<InstagramException, InstagramExceptionBuilder>, Exception {
   InstagramException._();
   factory InstagramException([void Function(InstagramExceptionBuilder) updates]) = _$InstagramException;
+  static Serializer<InstagramException> get serializer => _$instagramExceptionSerializer;
 
   int get code;
 
@@ -36,6 +39,7 @@ abstract class InstagramException implements Built<InstagramException, Instagram
 abstract class InstagramResponsePagination implements Built<InstagramResponsePagination, InstagramResponsePaginationBuilder>{
   InstagramResponsePagination._();
   factory InstagramResponsePagination([void Function(InstagramResponsePaginationBuilder) updates]) = _$InstagramResponsePagination;
+  static Serializer<InstagramResponsePagination> get serializer => _$instagramResponsePaginationSerializer;
   
   @BuiltValueField(wireName: 'next_url')
   String get nextUrl;
@@ -47,6 +51,7 @@ abstract class InstagramResponsePagination implements Built<InstagramResponsePag
 abstract class InstagramAuthException implements Built<InstagramAuthException, InstagramAuthExceptionBuilder>, Exception {
   InstagramAuthException._();
   factory InstagramAuthException([void Function(InstagramAuthExceptionBuilder) updates]) = _$InstagramAuthException;
+  static Serializer<InstagramAuthException> get serializer => _$instagramAuthExceptionSerializer;
   
   String get error;
 
